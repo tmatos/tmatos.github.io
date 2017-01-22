@@ -1,0 +1,223 @@
+<!doctype html>
+<html>
+<head>
+    <!-- HTML 4 -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- HTML5 -->
+    <meta charset="utf-8"/>
+
+	<title>Synth de exemplo usando Web Audio</title>
+
+	<script>
+		/* Copyright 2013 Chris Wilson
+
+		   Licensed under the Apache License, Version 2.0 (the "License");
+		   you may not use this file except in compliance with the License.
+		   You may obtain a copy of the License at
+
+		       http://www.apache.org/licenses/LICENSE-2.0
+
+		   Unless required by applicable law or agreed to in writing, software
+		   distributed under the License is distributed on an "AS IS" BASIS,
+		   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+		   See the License for the specific language governing permissions and
+		   limitations under the License.
+		*/
+
+		var context=null;		// the Web Audio "context" object
+		var oscillator=null;	// the single oscillator
+		var envelope=null;		// the envelope for the single oscillator
+		var attack=0.05;		// attack speed
+		var release=0.05;		// release speed
+		var portamento=0.01;	// portamento/glide speed
+		var activeNotes = [];	// the stack of actively-pressed keys
+
+		window.addEventListener('load', function() {
+			// patch up prefixes
+			window.AudioContext=window.AudioContext||window.webkitAudioContext;
+
+			context = new AudioContext();
+
+			// set up the basic oscillator chain, muted to begin with.
+			oscillator = context.createOscillator();
+			oscillator.frequency.setValueAtTime(110, 0);
+			envelope = context.createGain();
+			oscillator.connect(envelope);
+			envelope.connect(context.destination);
+			envelope.gain.value = 0.0;  // Mute the sound
+			oscillator.start(0);  // Go ahead and start up the oscillator
+		} );
+
+		function frequencyFromNoteNumber( note ) {
+			return 440 * Math.pow(2,(note-69)/12);
+		}
+
+		function noteOn(noteNumber) {
+			activeNotes.push( noteNumber );
+			oscillator.frequency.cancelScheduledValues(0);
+			oscillator.frequency.setTargetAtTime( frequencyFromNoteNumber(noteNumber), 0, portamento );
+			envelope.gain.cancelScheduledValues(0);
+			envelope.gain.setTargetAtTime(1.0, 0, attack);
+		}
+
+		function noteOff(noteNumber) {
+			var position = activeNotes.indexOf(noteNumber);
+			if (position!=-1) {
+				activeNotes.splice(position,1);
+			}
+			if (activeNotes.length==0) {	// shut off the envelope
+				envelope.gain.cancelScheduledValues(0);
+				envelope.gain.setTargetAtTime(0.0, 0, release );
+			} else {
+				oscillator.frequency.cancelScheduledValues(0);
+				oscillator.frequency.setTargetAtTime( frequencyFromNoteNumber(activeNotes[activeNotes.length-1]), 0, portamento );
+			}
+		}
+	</script>
+</head>
+<body>
+	Exemplo de synth simples que usa Web Audio.<br />
+	Para tocar, use o teclado do computador (teclas QWERT...).<br />
+	<a href="http://github.com/cwilso/monosynth">Baseado neste exemplo.</a><br />
+  
+  <br />
+  <br />
+	
+	Oitava:<br />
+	<input type="number" name="txtOitava" size="1" value="0" onchange="mudarOitava()">
+	
+  <br /><br /><br />
+  
+	Portamento:<br />
+	<input name="txtPort" type=range min=0.0001 max=1 value=0.0001 step=0.001 onchange="portamento = document.getElementsByName('txtPort')[0].value;">	
+	
+	<br />
+	<br />
+	<br />
+
+<!--
+  <button onclick="tocarNota(oitava+0)">DO</button>
+	<button onclick="tocarNota(oitava+2)">RE</button>
+	<button onclick="tocarNota(oitava+4)">MI</button>
+	<button onclick="tocarNota(oitava+5)">FA</button>
+	<button onclick="tocarNota(oitava+7)">SO</button>
+	<button onclick="tocarNota(oitava+9)">LA</button>
+	<button onclick="tocarNota(oitava+11)">SI</button>
+	<button onclick="tocarNota(oitava+12)">DO</button>
+	
+	<br />
+	<br />
+	<br />
+-->
+	
+	<button onclick="panic()">PANIC</button>
+  
+  &nbsp;&nbsp;&nbsp;
+  <h2 id="lblNota"></h2>
+
+	<script type="text/javascript" >
+		
+    lastNote = null;    
+		
+		oitava = 54;
+		document.getElementsByName('txtPort')[0].value = portamento;
+    
+    labelsNotas = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B'];
+		
+    function mudarOitava(nova) {
+      var controle = document.getElementsByName('txtOitava')[0];
+      
+      oitava = 54 + controle.value * 12;
+      controle.blur();
+    }
+		
+		function tocarNota(nota) {
+			if (lastNote != null) {
+				noteOff(lastNote);
+			}
+			
+			noteOn(nota);
+			lastNote = nota;
+		}
+    
+    function panic() {
+      noteOff(lastNote);
+      document.getElementById('lblNota').innerText = "";
+    }
+		
+		document.addEventListener('keydown',
+		
+		// ACESSE: http://keycode.info/		
+		
+		function(event) {
+      
+      var nota = null;
+      
+			switch(event.keyCode) {
+         case 81:
+          nota = 0; // C
+         	break;
+         case 50:
+          nota = 1; // C#
+         	break;
+         case 87:
+          nota = 2; // D
+         	break;
+         case 51:
+          nota = 3; // Eb
+         	break;
+         case 69:
+          nota = 4; // E
+         	break;
+         case 82:
+          nota = 5; // F
+         	break;
+         case 53:
+          nota = 6; // F#
+         	break;
+         case 84:
+          nota = 7; // G
+         	break;
+         case 54:
+          nota = 8; // G#
+         	break;
+         case 89:
+          nota = 9; // A
+         	break;
+         case 55:
+          nota = 10; // Bb
+         	break;
+         case 85:
+          nota = 11; // B
+         	break;
+         case 73:
+          nota = 12; // C
+         	break;
+         case 57:
+          nota = 13; // C#
+         	break;
+         case 79:
+          nota = 14; // D
+         	break;
+         case 48:
+          nota = 15; // Eb
+         	break;
+         case 80:
+          nota = 16; // E
+         	break;
+         }
+      
+         if(nota != null)
+         {
+           tocarNota(oitava+nota);
+           document.getElementById('lblNota').innerText = labelsNotas[nota%12];
+         }
+      
+      }  );
+      
+      //document.addEventListener('keyup', function(event) { noteOff(lastNote); lastNote = null; } ); 
+      
+	</script>
+	
+</body>
+</html>
