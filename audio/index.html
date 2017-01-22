@@ -32,6 +32,8 @@
 		var portamento=0.01;	// portamento/glide speed
 		var activeNotes = [];	// the stack of actively-pressed keys
 
+        var volume=0.7;
+
 		window.addEventListener('load', function() {
 			// patch up prefixes
 			window.AudioContext=window.AudioContext||window.webkitAudioContext;
@@ -57,7 +59,7 @@
 			oscillator.frequency.cancelScheduledValues(0);
 			oscillator.frequency.setTargetAtTime( frequencyFromNoteNumber(noteNumber), 0, portamento );
 			envelope.gain.cancelScheduledValues(0);
-			envelope.gain.setTargetAtTime(1.0, 0, attack);
+			envelope.gain.setTargetAtTime(volume, 0, attack);
 		}
 
 		function noteOff(noteNumber) {
@@ -76,27 +78,33 @@
 	</script>
 </head>
 <body>
+
 	Exemplo de synth simples que usa Web Audio.<br />
 	Para tocar, use o teclado do computador (teclas QWERT...).<br />
 	<a href="http://github.com/cwilso/monosynth">Baseado neste exemplo.</a><br />
   
-  <br />
-  <br />
+    <br />
+    <br />
 	
 	Oitava:<br />
 	<input type="number" name="txtOitava" size="1" value="0" onchange="mudarOitava()">
 	
-  <br /><br /><br />
+    <br /><br /><br />
   
 	Portamento:<br />
-	<input name="txtPort" type=range min=0.0001 max=1 value=0.0001 step=0.001 onchange="portamento = document.getElementsByName('txtPort')[0].value;">	
+	<input name="txtPort" type=range min=0.0001 max=1 value=0.0001 step=0.001 onchange="portamento = document.getElementsByName('txtPort')[0].value;">
+
+    <br /><br /><br />
+  
+    Volume:<br />
+    <input name="rangeVolume" type=range min=0.0001 max=1 value=0.7 step=0.001 onchange="volume = document.getElementsByName('rangeVolume')[0].value;">
 	
 	<br />
 	<br />
 	<br />
 
 <!--
-  <button onclick="tocarNota(oitava+0)">DO</button>
+    <button onclick="tocarNota(oitava+0)">DO</button>
 	<button onclick="tocarNota(oitava+2)">RE</button>
 	<button onclick="tocarNota(oitava+4)">MI</button>
 	<button onclick="tocarNota(oitava+5)">FA</button>
@@ -112,24 +120,25 @@
 	
 	<button onclick="panic()">PANIC</button>
   
-  &nbsp;&nbsp;&nbsp;
-  <h2 id="lblNota"></h2>
+    &nbsp;
+    <h2 id="lblNota"></h2>
 
 	<script type="text/javascript" >
 		
-    lastNote = null;    
-		
-		oitava = 54;
-		document.getElementsByName('txtPort')[0].value = portamento;
+        lastNote = null;    
     
-    labelsNotas = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B'];
-		
-    function mudarOitava(nova) {
-      var controle = document.getElementsByName('txtOitava')[0];
-      
-      oitava = 54 + controle.value * 12;
-      controle.blur();
-    }
+        oitava = 54;
+        document.getElementsByName('txtPort')[0].value = portamento;
+        document.getElementsByName('rangeVolume')[0].value = volume;
+        
+        labelsNotas = ['C', 'C#', 'D', 'Eb', 'E', 'F', 'F#', 'G', 'G#', 'A', 'Bb', 'B'];
+    
+        function mudarOitava(nova) {
+            var controle = document.getElementsByName('txtOitava')[0];
+
+            oitava = 54 + controle.value * 12;
+            controle.blur();
+        }
 		
 		function tocarNota(nota) {
 			if (lastNote != null) {
@@ -140,80 +149,80 @@
 			lastNote = nota;
 		}
     
-    function panic() {
-      noteOff(lastNote);
-      document.getElementById('lblNota').innerText = "";
-    }
+        function panic() {
+            noteOff(lastNote);
+            document.getElementById('lblNota').innerText = "";
+        }
 		
 		document.addEventListener('keydown',
-		
-		// ACESSE: http://keycode.info/		
-		
-		function(event) {
-      
-      var nota = null;
-      
-			switch(event.keyCode) {
-         case 81:
-          nota = 0; // C
-         	break;
-         case 50:
-          nota = 1; // C#
-         	break;
-         case 87:
-          nota = 2; // D
-         	break;
-         case 51:
-          nota = 3; // Eb
-         	break;
-         case 69:
-          nota = 4; // E
-         	break;
-         case 82:
-          nota = 5; // F
-         	break;
-         case 53:
-          nota = 6; // F#
-         	break;
-         case 84:
-          nota = 7; // G
-         	break;
-         case 54:
-          nota = 8; // G#
-         	break;
-         case 89:
-          nota = 9; // A
-         	break;
-         case 55:
-          nota = 10; // Bb
-         	break;
-         case 85:
-          nota = 11; // B
-         	break;
-         case 73:
-          nota = 12; // C
-         	break;
-         case 57:
-          nota = 13; // C#
-         	break;
-         case 79:
-          nota = 14; // D
-         	break;
-         case 48:
-          nota = 15; // Eb
-         	break;
-         case 80:
-          nota = 16; // E
-         	break;
-         }
-      
-         if(nota != null)
-         {
-           tocarNota(oitava+nota);
-           document.getElementById('lblNota').innerText = labelsNotas[nota%12];
-         }
-      
-      }  );
+            function(event) {
+    
+                var nota = null;
+          
+                // ACESSE: http://keycode.info/
+
+                switch(event.keyCode) {
+                case 81:
+                    nota = 0; // C
+                	break;
+                case 50:
+                    nota = 1; // C#
+                	break;
+                case 87:
+                    nota = 2; // D
+                	break;
+                case 51:
+                    nota = 3; // Eb
+                	break;
+                case 69:
+                    nota = 4; // E
+                	break;
+                case 82:
+                    nota = 5; // F
+                	break;
+                case 53:
+                    nota = 6; // F#
+                	break;
+                case 84:
+                    nota = 7; // G
+                	break;
+                case 54:
+                    nota = 8; // G#
+                	break;
+                case 89:
+                    nota = 9; // A
+                	break;
+                case 55:
+                    nota = 10; // Bb
+                	break;
+                case 85:
+                    nota = 11; // B
+                	break;
+                case 73:
+                    nota = 12; // C
+                	break;
+                case 57:
+                    nota = 13; // C#
+                	break;
+                case 79:
+                    nota = 14; // D
+                	break;
+                case 48:
+                    nota = 15; // Eb
+                	break;
+                case 80:
+                 nota = 16; // E
+                	break;
+                }
+
+                if(nota != null)
+                {
+                    tocarNota(oitava+nota);
+                    document.getElementById('lblNota').innerText = labelsNotas[nota%12];
+                }
+
+            }
+        );
       
       //document.addEventListener('keyup', function(event) { noteOff(lastNote); lastNote = null; } ); 
       
