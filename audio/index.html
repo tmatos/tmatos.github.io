@@ -140,7 +140,8 @@
 		
         lastNote = null;    
     
-        oitava = 54;
+        do_central = 60;
+        oitava = do_central;
         document.getElementsByName('txtPort')[0].value = portamento;
         document.getElementsByName('rangeVolume')[0].value = volume;
         
@@ -149,7 +150,7 @@
         function mudarOitava(nova) {
             var controle = document.getElementsByName('txtOitava')[0];
 
-            oitava = 54 + controle.value * 12;
+            oitava = do_central + controle.value * 12;
             controle.blur();
         }
 		
@@ -224,7 +225,7 @@
                     nota = 15; // Eb
                 	break;
                 case 80:
-                 nota = 16; // E
+                    nota = 16; // E
                 	break;
                 }
 
