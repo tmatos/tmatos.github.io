@@ -99,6 +99,16 @@
         <input type="number" name="txtOitava" size="1" min="-3" max="5" value="0" onchange="mudarOitava()">
 
         <br /><br /><br />
+        
+        Waveform:<br />
+        <select name="ddlWaveform" onchange="mudarWaveform(this.value)">
+            <option value="sine">Seno</option>
+            <option value="square">Quadrada</option>
+            <option value="sawtooth">Dente de Serra</option>
+            <option value="triangle">Triangulo</option>
+        </select>
+
+        <br /><br /><br />
 
         Portamento:<br />
         <input name="txtPort" type=range min=0.0001 max=1 value=0.0001 step=0.001 onchange="portamento = document.getElementsByName('txtPort')[0].value;">
@@ -162,6 +172,14 @@
             var controle = document.getElementsByName('txtOitava')[0];
 
             oitava = do_central + controle.value * 12;
+            controle.blur();
+        }
+        
+        function mudarWaveform(valor) {
+            var controle = document.getElementsByName('ddlWaveform')[0];
+
+            oscillator.type = valor;
+            
             controle.blur();
         }
 		
