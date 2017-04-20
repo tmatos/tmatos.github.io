@@ -1,9 +1,10 @@
 body {
     background-color: #f7f7f7;
+    font-family: sans-serif
 }
 
 #cabecalho {
-    max-width: 480px;
+    max-width: 520px;
     margin: 0 auto;
 }
 
@@ -14,4 +15,14 @@ body {
     box-shadow: 0 0 15px 0px grey;
     padding: 0 10px 0 10px;
     background-color: #ffffff;
+}
+
+.painel-parte {
+    margin-top: 10px
+}
+
+.controle {
+    display: inline-block;
+    width: 40%;
+    margin: 10px;
 }
