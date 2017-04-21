@@ -15,12 +15,10 @@
 <body>
 
     <div id="cabecalho">
-        
         <img src="piano-keyboard-icon.png" style="float:left;">
         Exemplo de synth simples que usa Web Audio.<br />
         Para tocar, use o teclado do computador (teclas QWERT...).<br />
         <a href="http://github.com/cwilso/monosynth">Baseado neste exemplo.</a><br />
-	
     </div>
   
     <br />
@@ -30,7 +28,7 @@
 	
         <div class="painel-parte">
             <div class="controle">
-                Oitava:            <input type="number" name="txtOitava" size="1" min="-3" max="5" value="0" onchange="mudarOitava()">
+                Oitava: <input style="width: 50px;" type="number" name="txtOitava" size="1" min="-3" max="5" value="0" onchange="mudarOitava()">
             </div>
             <div class="controle">
                 <input type="checkbox" name="chkSustain" onchange="auto_sustain = !auto_sustain; this.blur();"> Sustain auto
@@ -84,9 +82,7 @@
         </div>
 
         <div class="painel-parte">
-            
-                <button style="margin: 10px" onclick="panic()">PANIC</button> (interrompe todas as notas)
-            
+            <p style="font-size: 13px;"><button style="margin: 10px" onclick="panic()">PANIC</button>(interrompe todas as notas)</p>
         </div>
 
         <div style="margin: 10px">
