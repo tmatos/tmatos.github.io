@@ -28,6 +28,18 @@
 	
         <div class="painel-parte">
             <div class="controle">
+                <b>WebMonoSynth</b> <br>
+                1.0.1
+            </div>
+            <div class="controle">
+                <p style="text-align: center">
+                    <button id="btnOff" onclick="onOffSynth(event)"> <b> DESLIGAR </b> </button>
+                </p>
+            </div>
+        </div>
+	
+        <div class="painel-parte">
+            <div class="controle">
                 Oitava: <input style="width: 50px;" type="number" name="txtOitava" size="1" min="-3" max="5" value="0" onchange="mudarOitava()">
             </div>
             <div class="controle">
@@ -91,7 +103,29 @@
     
     </div>
 
+    <script type="text/javascript" >
+        
+        btnOff.hidden = true;
+        
+        function onOffSynth(event) {
+            ligado = !ligado;
+            
+            if(ligado) {
+                context.resume();
+                btnOff.hidden = false;
+            }
+            else {
+                panic();
+                context.suspend();
+                btnOff.hidden = true;
+            }
+        }
+        
+    </script>
+
 	<script type="text/javascript" >
+        
+        ligado = false;
 		
         lastNote = null;    
     
@@ -120,6 +154,10 @@
         }
 		
 		function tocarNota(nota) {
+            if (!ligado) {
+                onOffSynth(event);
+            }
+            
 			if (lastNote != null) {
 				noteOff(lastNote);
 			}
