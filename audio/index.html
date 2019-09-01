@@ -40,10 +40,12 @@
 	
         <div class="painel-parte">
             <div class="controle">
-                Oitava: <input style="width: 50px;" type="number" name="txtOitava" size="1" min="-3" max="5" value="0" onchange="mudarOitava()">
+                Oitava:
+                <input style="width: 50px;" type="number" name="txtOitava" id="txtOitava" size="1" min="-3" max="5" value="0" maxlength="2" pattern="-?[0-9]" onchange="mudarOitava()" onkeydown="preventWrongInputOitava(event)">
             </div>
             <div class="controle">
-                <input type="checkbox" name="chkSustain" onchange="auto_sustain = !auto_sustain; this.blur();"> Sustain auto
+                <input type="checkbox" name="chkSustain" onchange="auto_sustain = !auto_sustain; this.blur();">
+                Sustain auto
             </div>
         </div>
         
@@ -269,7 +271,11 @@
             }
         );
       
-      //document.addEventListener('keyup', function(event) { noteOff(lastNote); lastNote = null; } ); 
+      //document.addEventListener('keyup', function(event) { noteOff(lastNote); lastNote = null; } );
+    
+        function preventWrongInputOitava(event) {
+            event.preventDefault();
+        }
       
 	</script>
     
