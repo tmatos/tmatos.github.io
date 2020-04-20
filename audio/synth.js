@@ -1,4 +1,5 @@
 /* Copyright 2013 Chris Wilson
+   Copyright 2020 Tiago Matos
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -23,6 +24,9 @@ var activeNotes = [];	// the stack of actively-pressed keys
 
 var volume=0.7;
 
+var lpf = null;             // filtro passa baixa (LPF)
+var lpf_min_cutoff = 60;    // freq. de corte minima do LPF em Hertz
+
 window.addEventListener('load', function() {
     // patch up prefixes
     window.AudioContext=window.AudioContext||window.webkitAudioContext;
@@ -32,10 +36,15 @@ window.addEventListener('load', function() {
     // set up the basic oscillator chain, muted to begin with.
     oscillator = context.createOscillator();
     oscillator.frequency.setValueAtTime(110, 0);
+    lpf = context.createBiquadFilter();
+    lpf.type = 'lowpass';
+    lpf.frequency.value = Math.pow(2, Math.log2(lpf_min_cutoff) + 0.7*( Math.log2(lpf.frequency.maxValue) - Math.log2(lpf_min_cutoff) ) );
     envelope = context.createGain();
-    oscillator.connect(envelope);
+    oscillator.connect(lpf);
+    lpf.connect(envelope)
     envelope.connect(context.destination);
     envelope.gain.value = 0.0;  // Mute the sound
+
     oscillator.start(0);  // Go ahead and start up the oscillator
 } );
 

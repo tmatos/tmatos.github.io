@@ -65,6 +65,18 @@
                 <input name="txtDetune" type=range min=-99 max=99 value=0 step=1 onchange="mudarDetune(this.value)">
             </div>
         </div>
+        
+        <div class="painel-parte">
+            <div class="controle">
+                Freq. de corte:
+                <input name="txtFilterCutoff" type=range min=0 max=1 value=0.7 step=0.001 oninput="mudarFilterCutoff(this.value);">
+            </div>
+
+            <div class="controle">
+                Fator Q:
+                <input name="txtFilterQ" type=range min=0 max=1 value=0 step=0.001 oninput="mudarFilterQ(this.value);">
+            </div>
+        </div>
 
         <div class="painel-parte">
             <div class="controle">
@@ -174,6 +186,30 @@
             var controle = document.getElementsByName('txtDetune')[0];
 
             oscillator.detune.setValueAtTime(valor, context.currentTime);
+            
+            controle.blur();
+        }
+
+        function mudarFilterCutoff(valor) {
+            var controle = document.getElementsByName('txtFilterCutoff')[0];
+
+            var log_min = Math.log2(lpf_min_cutoff);
+            var log_max = Math.log2(lpf.frequency.maxValue);
+
+            var log_range = log_max - log_min;
+
+            valor_hz = Math.pow(2, log_min + valor*log_range);
+
+            //lpf.frequency.setValueAtTime(valor_hz, context.currentTime);
+            lpf.frequency.value = valor_hz;
+            
+            controle.blur();
+        }
+
+        function mudarFilterQ(valor) {
+            var controle = document.getElementsByName('txtFilterQ')[0];
+
+            lpf.Q.value = valor * 20;
             
             controle.blur();
         }
