@@ -15,10 +15,9 @@
 <body>
 
     <div id="cabecalho">
-        <img src="piano-keyboard-icon.png" style="float:left;">
-        Exemplo de synth simples que usa Web Audio.<br />
+        <img src="piano-keyboard-icon.png" style="float:left;"><br>
+        Sintetizador subtrativo simples que usa a API Web Audio.<br />
         Para tocar, use o teclado do computador (teclas QWERT...).<br />
-        <a href="http://github.com/cwilso/monosynth">Baseado neste exemplo.</a><br />
     </div>
   
     <br />
@@ -28,84 +27,113 @@
 	
         <div class="painel-parte">
             <div class="controle">
-                <b>WebMonoSynth</b> <br>
-                1.0.2
-            </div>
-            <div class="controle">
-                <p style="text-align: center">
-                    <button id="btnOff" onclick="onOffSynth(event)"> <b> DESLIGAR </b> </button>
+                <p style="vertical-align: middle;">
+                    <b>MonoSynth</b>
+                    <small>1.1</small>
                 </p>
             </div>
+            <div class="controle">
+                <p style="text-align: center; vertical-align: middle;">
+                    <button id="btnOff" onclick="onOffSynth(event)"> <b>DESLIGAR</b> </button>
+                </p>
+            </div>
+        </div>
+
+        <div class="painel-grupo">
+        
+            <div class="painel-subgrupo">
+                <div class="controle">
+                    Waveform:<br />
+                    <select name="ddlWaveform" onchange="mudarWaveform(this.value)">
+                        <option value="triangle">Triangulo</option>
+                        <option value="sawtooth">Dente de Serra</option>
+                        <option value="sine">Seno</option>
+                        <option value="square">Quadrada</option>
+                    </select>
+                </div>
+
+                <div class="controle">
+                    Detune:<br />
+                    <input name="txtDetune" type=range min=-99 max=99 value=0 step=1
+                        oninput="mudarDetune(this.value);">
+                </div>
+            </div>
+            
+            <div class="painel-subgrupo">
+                <div class="controle">
+                    Freq. de corte: <br />
+                    <input name="txtFilterCutoff" type=range min=0 max=1 value=0.7 step=0.001
+                        oninput="mudarFilterCutoff(this.value);">
+                </div>
+
+                <div class="controle">
+                    Fator Q: <br />
+                    <input name="txtFilterQ" type=range min=0 max=1 value=0 step=0.001
+                        oninput="mudarFilterQ(this.value);">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="painel-grupo">
+        
+            <div class="painel-subgrupo">
+                <div class="controle">
+                    Ataque:<br />
+                    <input name="txtAtaque" type=range min=0.005 max=1 value=0.05 step=0.001
+                        onchange="attack = document.getElementsByName('txtAtaque')[0].value;">
+                </div>
+
+                <div class="controle">
+                    Release:<br />
+                    <input name="txtRelease" type=range min=0.0075 max=1 value=0.05 step=0.001
+                        onchange="release = document.getElementsByName('txtRelease')[0].value;">
+                </div>
+            </div>
+
+            <div class="painel-subgrupo">
+                <div class="controle">
+                    Portamento:<br />
+                    <input name="txtPort" type=range min=0.0001 max=1 value=0.0001 step=0.001
+                        onchange="portamento = document.getElementsByName('txtPort')[0].value;">
+                </div>
+                
+                <div class="controle">
+                    Volume:<br />
+                    <input name="rangeVolume" type=range min=0.0001 max=1 value=0.7 step=0.001
+                        onchange="volume = document.getElementsByName('rangeVolume')[0].value;">
+                </div>
+            </div>
+
         </div>
 	
         <div class="painel-parte">
             <div class="controle">
-                Oitava:
-                <input style="width: 50px;" type="number" name="txtOitava" id="txtOitava" size="1" min="-3" max="5" value="0" maxlength="2" pattern="-?[0-9]" onchange="mudarOitava()" onkeydown="preventWrongInputOitava(event)">
+                <p style="vertical-align: middle;">
+                    Oitava:
+                    <input style="width: 50px;" type="number" name="txtOitava" id="txtOitava"
+                        size="1" min="-3" max="5" value="0" maxlength="2" pattern="-?[0-9]"
+                        onchange="mudarOitava()" onkeydown="preventWrongInputOitava(event)">
+                </p>
             </div>
             <div class="controle">
-                <input type="checkbox" name="chkSustain" onchange="auto_sustain = !auto_sustain; this.blur();">
-                Sustain auto
+                <p style="vertical-align: middle;">
+                    <input type="checkbox" name="chkSustain"
+                        onchange="auto_sustain = !auto_sustain; this.blur();">
+                    Sustain permanecer
+                </p>
             </div>
-        </div>
-        
-        <div class="painel-parte">
             <div class="controle">
-                Waveform:<br />
-                <select name="ddlWaveform" onchange="mudarWaveform(this.value)">
-                    <option value="sine">Seno</option>
-                    <option value="square">Quadrada</option>
-                    <option value="sawtooth">Dente de Serra</option>
-                    <option value="triangle">Triangulo</option>
-                </select>
-            </div>
-
-            <div class="controle">
-                Detune:<br />
-                <input name="txtDetune" type=range min=-99 max=99 value=0 step=1 onchange="mudarDetune(this.value)">
-            </div>
-        </div>
-        
-        <div class="painel-parte">
-            <div class="controle">
-                Freq. de corte:
-                <input name="txtFilterCutoff" type=range min=0 max=1 value=0.7 step=0.001 oninput="mudarFilterCutoff(this.value);">
-            </div>
-
-            <div class="controle">
-                Fator Q:
-                <input name="txtFilterQ" type=range min=0 max=1 value=0 step=0.001 oninput="mudarFilterQ(this.value);">
-            </div>
-        </div>
-
-        <div class="painel-parte">
-            <div class="controle">
-                Ataque:<br />
-                <input name="txtAtaque" type=range min=0.005 max=1 value=0.05 step=0.001 onchange="attack = document.getElementsByName('txtAtaque')[0].value;">
-            </div>
-
-            <div class="controle">
-                Release:<br />
-                <input name="txtRelease" type=range min=0.0075 max=1 value=0.05 step=0.001 onchange="release = document.getElementsByName('txtRelease')[0].value;">
-            </div>
-        </div>
-
-        <div class="painel-parte">
-            <div class="controle">
-                Portamento:<br />
-                <input name="txtPort" type=range min=0.0001 max=1 value=0.0001 step=0.001 onchange="portamento = document.getElementsByName('txtPort')[0].value;">
-            </div>
-            
-            <div class="controle">
-                Volume:<br />
-                <input name="rangeVolume" type=range min=0.0001 max=1 value=0.7 step=0.001 onchange="volume = document.getElementsByName('rangeVolume')[0].value;">
+                <p style="vertical-align: middle; text-align: center;">
+                    <button onclick="panic()">PANIC</button>  (desliga nota)
+                </p>
             </div>
         </div>
 
         <br />
         <br />
 
-        <div class="painel-parte">
+        <div class="painel-parte-mobile">
             <span id="botoesMobile" hidden="true" >
                 <button onclick="tocarNota(oitava+0)">DO</button>
                 <button onclick="tocarNota(oitava+2)">RE</button>
@@ -122,14 +150,14 @@
             </span>
         </div>
 
-        <div class="painel-parte">
-            <p style="font-size: 13px;"><button style="margin: 10px" onclick="panic()">PANIC</button>(interrompe todas as notas)</p>
-        </div>
-
-        <div style="margin: 10px">
+        <div style="margin: 10px; text-align: center;">
             <h2 id="lblNota"></h2>
         </div>
     
+    </div>
+
+    <div id="rodape">
+        <small>&copy; 2017, 2020 Tiago Matos</small>
     </div>
 
     <script type="text/javascript" >
@@ -200,7 +228,6 @@
 
             valor_hz = Math.pow(2, log_min + valor*log_range);
 
-            //lpf.frequency.setValueAtTime(valor_hz, context.currentTime);
             lpf.frequency.value = valor_hz;
             
             controle.blur();

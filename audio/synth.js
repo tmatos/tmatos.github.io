@@ -36,6 +36,7 @@ window.addEventListener('load', function() {
     // set up the basic oscillator chain, muted to begin with.
     oscillator = context.createOscillator();
     oscillator.frequency.setValueAtTime(110, 0);
+    oscillator.type = 'triangle';
     lpf = context.createBiquadFilter();
     lpf.type = 'lowpass';
     lpf.frequency.value = Math.pow(2, Math.log2(lpf_min_cutoff) + 0.7*( Math.log2(lpf.frequency.maxValue) - Math.log2(lpf_min_cutoff) ) );

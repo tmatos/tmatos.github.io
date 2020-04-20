@@ -1,28 +1,64 @@
 body {
-    background-color: #f7f7f7;
+    background-color: #000000;
     font-family: sans-serif
 }
 
 #cabecalho {
+    max-width: 580px;
+    margin: 0 auto;
+    color: #ffffff;
+    text-align: center;
+}
+
+#rodape {
     max-width: 520px;
     margin: 0 auto;
+    text-align: center;
+    padding: 15px 0 0 0;
+    color: #ffffff;
 }
 
 #painel {
-    max-width: 300px;
+    display: block;
+    max-width: 640px;
     margin: 0 auto;
-    border: solid grey 5px;
-    box-shadow: 0 0 15px 0px grey;
+    border: solid rgb(41, 41, 41) 5px;
+    box-shadow: 0 0 15px 3px rgb(77, 77, 77);
     padding: 0 10px 0 10px;
-    background-color: #ffffff;
+    color: #ffffff;
+    background-color: #181818;
+    transition: height 2s;
 }
 
 .painel-parte {
-    margin-top: 10px
+    display: flex;
+    width: auto;
+    margin-top: 10px;
+    border: solid rgb(255, 255, 255) 1px;
+    justify-content: space-between;
+}
+
+.painel-grupo {
+    display: inline-flex;
+    width: 100%;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.painel-subgrupo {
+    display: inline-flex;
+    width: 49%;
+    border: solid rgb(255, 255, 255) 1px;
+    justify-content: space-between;
+}
+
+.painel-parte-mobile {
+    margin-top: 10px;
+    background-color: #ffffff;
 }
 
 .controle {
     display: inline-block;
-    width: 40%;
+    width: 100%;
     margin: 10px;
 }
