@@ -29,7 +29,7 @@
         <div class="painel-parte">
             <div class="controle">
                 <b>WebMonoSynth</b> <br>
-                1.0.1
+                1.0.2
             </div>
             <div class="controle">
                 <p style="text-align: center">
@@ -63,12 +63,22 @@
 
         <div class="painel-parte">
             <div class="controle">
-                Portamento:<br />
-                <input name="txtPort" type=range min=0.0001 max=1 value=0.0001 step=0.001 onchange="portamento = document.getElementsByName('txtPort')[0].value;">
+                Ataque:<br />
+                <input name="txtAtaque" type=range min=0.005 max=1 value=0.05 step=0.001 onchange="attack = document.getElementsByName('txtAtaque')[0].value;">
+            </div>
+
+            <div class="controle">
+                Release:<br />
+                <input name="txtRelease" type=range min=0.0075 max=1 value=0.05 step=0.001 onchange="release = document.getElementsByName('txtRelease')[0].value;">
             </div>
         </div>
 
         <div class="painel-parte">
+            <div class="controle">
+                Portamento:<br />
+                <input name="txtPort" type=range min=0.0001 max=1 value=0.0001 step=0.001 onchange="portamento = document.getElementsByName('txtPort')[0].value;">
+            </div>
+            
             <div class="controle">
                 Volume:<br />
                 <input name="rangeVolume" type=range min=0.0001 max=1 value=0.7 step=0.001 onchange="volume = document.getElementsByName('rangeVolume')[0].value;">
