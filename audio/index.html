@@ -4,11 +4,11 @@
     <!-- HTML 4 -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!-- HTML5 -->
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
 
 	<title>Sintetizador de Áudio Online</title>
 	
-	<link rel="stylesheet" href="main.css" />
+	<link rel="stylesheet" href="main.css">
 
     <script src='synth.js'></script>
 </head>
@@ -16,12 +16,12 @@
 
     <div id="cabecalho">
         <img src="piano-keyboard-icon.png" style="float:left;" alt="ícone representando cinco teclas de um teclado musical, três teclas brancas e duas pretas entre estas brancas"><br>
-        Sintetizador subtrativo simples que usa a API Web Audio.<br />
-        Para tocar, use o teclado do computador (teclas QWERT...).<br />
+        Sintetizador subtrativo simples que usa a API Web Audio.<br>
+        Para tocar, use o teclado do computador (teclas QWERT...).<br>
     </div>
   
-    <br />
-    <br />
+    <br>
+    <br>
 	
 	<div id="painel">
 	
@@ -43,7 +43,7 @@
         
             <div class="painel-subgrupo">
                 <div class="controle">
-                    Waveform:<br />
+                    Waveform:<br>
                     <select name="ddlWaveform" onchange="mudarWaveform(this.value)">
                         <option value="triangle">Triangulo</option>
                         <option value="sawtooth">Dente de Serra</option>
@@ -53,7 +53,7 @@
                 </div>
 
                 <div class="controle">
-                    Detune:<br />
+                    Detune:<br>
                     <input name="txtDetune" type=range min=-99 max=99 value=0 step=1
                         oninput="mudarDetune(this.value);">
                 </div>
@@ -61,13 +61,13 @@
             
             <div class="painel-subgrupo">
                 <div class="controle">
-                    Freq. de corte: <br />
+                    Freq. de corte: <br>
                     <input name="txtFilterCutoff" type=range min=0 max=1 value=0.7 step=0.001
                         oninput="mudarFilterCutoff(this.value);">
                 </div>
 
                 <div class="controle">
-                    Fator Q: <br />
+                    Fator Q: <br>
                     <input name="txtFilterQ" type=range min=0 max=1 value=0 step=0.001
                         oninput="mudarFilterQ(this.value);">
                 </div>
@@ -79,13 +79,13 @@
         
             <div class="painel-subgrupo">
                 <div class="controle">
-                    Ataque:<br />
+                    Ataque:<br>
                     <input name="txtAtaque" type=range min=0.005 max=1 value=0.05 step=0.001
                         onchange="attack = document.getElementsByName('txtAtaque')[0].value;">
                 </div>
 
                 <div class="controle">
-                    Release:<br />
+                    Release:<br>
                     <input name="txtRelease" type=range min=0.0075 max=1 value=0.05 step=0.001
                         onchange="release = document.getElementsByName('txtRelease')[0].value;">
                 </div>
@@ -93,13 +93,13 @@
 
             <div class="painel-subgrupo">
                 <div class="controle">
-                    Portamento:<br />
+                    Portamento:<br>
                     <input name="txtPort" type=range min=0.0001 max=1 value=0.0001 step=0.001
                         onchange="portamento = document.getElementsByName('txtPort')[0].value;">
                 </div>
                 
                 <div class="controle">
-                    Volume:<br />
+                    Volume:<br>
                     <input name="rangeVolume" type=range min=0.0001 max=1 value=0.7 step=0.001
                         onchange="volume = document.getElementsByName('rangeVolume')[0].value;">
                 </div>
@@ -130,8 +130,8 @@
             </div>
         </div>
 
-        <br />
-        <br />
+        <br>
+        <br>
 
         <div class="painel-parte-mobile">
             <span id="botoesMobile" hidden="true" >
@@ -144,9 +144,9 @@
                 <button onclick="tocarNota(oitava+11)">SI</button>
                 <button onclick="tocarNota(oitava+12)">DO</button>
 
-                <br />
-                <br />
-                <br />
+                <br>
+                <br>
+                <br>
             </span>
         </div>
 
