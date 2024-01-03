@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Tiago Matos Santos">
+  <title>Redes de Computadores</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="lib/dist/reset.css">
+  <link rel="stylesheet" href="lib/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="lib/dist/theme/black.css" id="theme">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide">
+  <h1 class="title">Redes de Computadores</h1>
+  <p class="author">Tiago Matos Santos</p>
+</section>
+
+<section id="wireless-redes-sem-fio" class="slide level2">
+<h2>Wireless (redes sem fio)</h2>
+<ul>
+<li>Objetivo: Compreender o fenômeno físico envolvido na transmissão de sinais via ondas eletromagné- ticas e os principais aspectos dos protocolos IEEE 802.11 envolvidos na criação e operação das redes de dados sem fio.</li>
+</ul>
+</section>
+<section id="conteúdos" class="slide level2">
+<h2>Conteúdos</h2>
+<ul>
+<li>Motivação</li>
+<li>Propagação de ondas eletromagnéticas</li>
+<li>IEEE 802.11 e seus modos de operação</li>
+<li>Serviços das estações WiFi</li>
+<li>Segurança de dados em WiFi</li>
+<li>Regulmentação no uso do Espectro Eletromagnético</li>
+<li>Características dos canais de rede em 2.4 e 5 GHz</li>
+<li>Atividade: medição de sinais de rede</li>
+</ul>
+</section>
+<section id="introdução-redes" class="slide level2">
+<h2>Introdução (redes)</h2>
+<figure>
+<img data-src="img/rede-exemplo.png" alt="Compartilhamento de recursos" /><figcaption aria-hidden="true">Compartilhamento de recursos</figcaption>
+</figure>
+</section>
+<section id="introdução-redes-1" class="slide level2">
+<h2>Introdução (redes)</h2>
+<p><img data-src="img/com-ou-sem-fio.png" /></p>
+<ul>
+<li>Com ou sem fios?</li>
+</ul>
+<!---
+![Rede WAN](img/rede-wan.png)
+--->
+</section>
+<section id="meio-físico-sem-fio" class="slide level2">
+<h2>Meio físico sem fio</h2>
+<ul>
+<li>As redes sem fio utilizam a transmissão e recpção de ondas eletromagnéticas.</li>
+<li>Estas ondas podem operar em diferentes frequências.</li>
+<li>Existem frequencias específicas para cada serviço permitido, como TV, rádio, telefonia, etc.</li>
+</ul>
+</section>
+<section id="propagação-de-ondas" class="slide level2">
+<h2>Propagação de ondas</h2>
+<figure>
+<img data-src="img/Dipole_xmting_antenna.gif" alt="Transmissão" /><figcaption aria-hidden="true">Transmissão</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="img/electromagneticwave3d.gif" alt="Propagação" /><figcaption aria-hidden="true">Propagação</figcaption>
+</figure>
+</section>
+<section class="slide level2">
+
+<figure>
+<img data-src="img/Dipole_receiving_antenna.gif" alt="Recepção" /><figcaption aria-hidden="true">Recepção</figcaption>
+</figure>
+</section>
+<section id="ondas" class="slide level2">
+<h2>Ondas</h2>
+<figure>
+<img data-src="img/waves3.png" alt="Três frequências diferentes" /><figcaption aria-hidden="true">Três frequências diferentes</figcaption>
+</figure>
+</section>
+<section id="ondas-eletromagnéticas" class="slide level2">
+<h2>Ondas eletromagnéticas</h2>
+<figure>
+<img data-src="img/espectro-com-cores.jpg" alt="Espectro eletromagnético" /><figcaption aria-hidden="true">Espectro eletromagnético</figcaption>
+</figure>
+</section>
+<section id="ondas-eletromagnéticas-1" class="slide level2">
+<h2>Ondas eletromagnéticas</h2>
+<figure>
+<img data-src="img/spectro.png" alt="Espectro eletromagnético" /><figcaption aria-hidden="true">Espectro eletromagnético</figcaption>
+</figure>
+</section>
+<section id="ieee-802.11-wifi" class="slide level2">
+<h2>IEEE 802.11 / WiFi</h2>
+<ul>
+<li><p>Existem várias tecnologias para redes sem-fio</p></li>
+<li><p>A família de padrões IEEE 802.11 é destaque</p></li>
+<li><p>Equipamentos em plena adequação aos padrões podem receber uma certificação da Wi-Fi Alliance</p></li>
+<li><p>Na prática, WiFi é sinônimo para as redes LAN sem fio neste padrão</p></li>
+</ul>
+</section>
+<section id="terminologia" class="slide level2">
+<h2>Terminologia</h2>
+<p><img src="img/Wifi_certified_logo.png" width=147 height=85 ></p>
+<p>De agora em diante, exceto onde indicado, usaremos redes LAN IEEE 802.11 e WiFi como sinônimos.</p>
+</section>
+<section id="gerações" class="slide level2">
+<h2>Gerações</h2>
+<p><img data-src="img/geracoes-wifi.png" /></p>
+</section>
+<section id="pilha-de-camadas" class="slide level2">
+<h2>Pilha de camadas</h2>
+<figure>
+<img data-src="img/camadas.png" alt="Rede em camadas" /><figcaption aria-hidden="true">Rede em camadas</figcaption>
+</figure>
+</section>
+<section id="wifi-na-pilha-de-camadas" class="slide level2">
+<h2>WiFi na pilha de camadas</h2>
+<p><img data-src="img/camadas-exemplo.png" /></p>
+</section>
+<section id="modos-de-operação-em-wi-fi" class="slide level2">
+<h2>Modos de operação em Wi-Fi</h2>
+<ul>
+<li>Pequeno número de computadores comunicando-se sem fio, sem um equipaento ponto de acesso.</li>
+</ul>
+<figure>
+<img data-src="img/adhoc.png" alt="Rede adhoc" /><figcaption aria-hidden="true">Rede adhoc</figcaption>
+</figure>
+</section>
+<section id="modos-de-operação-em-wi-fi-1" class="slide level2">
+<h2>Modos de operação em Wi-Fi</h2>
+<p>A rede sem fio é comandada por um periférico chamado ponto de acesso.</p>
+<p><img data-src="img/bss.png" /></p>
+</section>
+<section id="bss-basic-service-set" class="slide level2">
+<h2>BSS Basic service set</h2>
+<ul>
+<li>A rede recebe um SSID (Serice Set ID) que consiste em um nome configurado pelo administrador.</li>
+</ul>
+<p><img data-src="img/bss.png" /></p>
+</section>
+<section id="ess-extended-service-set" class="slide level2">
+<h2>ESS Extended service set</h2>
+<ul>
+<li>Usados vários pontos de acesso formando uma rede maior com o mesmo SSID.</li>
+</ul>
+<p><img data-src="img/ess.png" /></p>
+</section>
+<section id="ess-extended-service-set-1" class="slide level2">
+<h2>ESS Extended service set</h2>
+<ul>
+<li>Metém-se a sua conectividade com a rede quando está em trânsito.</li>
+</ul>
+<figure>
+<img data-src="img/bss-transito.png" alt="Mobilidade na mesma sub-rede IP" /><figcaption aria-hidden="true">Mobilidade na mesma sub-rede IP</figcaption>
+</figure>
+</section>
+<section id="serviços-de-estação" class="slide level2">
+<h2>Serviços de Estação</h2>
+<ul>
+<li>Autenticação</li>
+<li>Desautenticação</li>
+<li>Entrega de dados</li>
+<li>Confidencialidade</li>
+</ul>
+</section>
+<section id="criptografia" class="slide level2">
+<h2>Criptografia</h2>
+<table>
+<colgroup>
+<col style="width: 31%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Protocolo</th>
+<th>Observação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>WEP (Wired Equivalent Privacy)</td>
+<td>não deve ser usado, pois é um protocolo cuja segurança já foi quebrada</td>
+</tr>
+<tr class="even">
+<td>WPA (Wi-Fi Protected Access)</td>
+<td>não deve ser usado, pois é um protocolo cuja segurança já foi quebrada</td>
+</tr>
+<tr class="odd">
+<td>WPA2 (Wi-Fi Protected Access 2)</td>
+<td>só deve ser usado caso o ponto de acesso e as estações não tenham WPA3</td>
+</tr>
+<tr class="even">
+<td>WPA3 (Wi-Fi Protected Access 3)</td>
+<td>é o algoritmo mais forte no momento e que deve ser utilizado</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="uso-do-espectro-eletromagnético" class="slide level2">
+<h2>Uso do Espectro Eletromagnético</h2>
+<ul>
+<li>Redes Wi-Fi operam transmitindo ondas de rádio</li>
+<li>O uso do espectro eletromagnétco é regulado em cada país</li>
+<li>Feito pela Anatel no Brasil e a FCC nos EUA.</li>
+</ul>
+</section>
+<section id="uso-do-espectro-eletromagnético-1" class="slide level2">
+<h2>Uso do Espectro Eletromagnético</h2>
+<p>Existem faixas denominadas ISM (Industrial, Scientific, and Medical) que podem ser usadas livremente sem a necessidade de autorização prévia por parte da agência reguladora.</p>
+<p>Destas, duas podem ser utilizadas por redes Wi-Fi: 2,4 GHz e 5 GHz.</p>
+</section>
+<section id="faixa-de-24-ghz" class="slide level2">
+<h2>Faixa de 2,4 GHz</h2>
+<figure>
+<img data-src="img/canais2.4g.png" alt="Canais disponíveis" /><figcaption aria-hidden="true">Canais disponíveis</figcaption>
+</figure>
+</section>
+<section id="faixa-de-24-ghz-1" class="slide level2">
+<h2>Faixa de 2,4 GHz</h2>
+<p><img data-src="img/spectro2.4.png" /></p>
+</section>
+<section id="características-da-faixa-de-24-ghz" class="slide level2">
+<h2>Características da Faixa de 2,4 GHz</h2>
+<ul>
+<li>Saturada</li>
+<li>Sobreposição de canais</li>
+<li>Poucos canais disponíveis</li>
+<li>Muitas redes usando</li>
+<li>Menor desempenho</li>
+<li>Maior alcance</li>
+<li>Mais barata</li>
+<li>Disponível em todos os equipamentos Wi-Fi</li>
+</ul>
+</section>
+<section id="faixa-de-5-ghz" class="slide level2">
+<h2>Faixa de 5 GHz</h2>
+<p><img data-src="img/faixa-5g-anatel.png" /></p>
+</section>
+<section id="características-da-faixa-de-5-ghz" class="slide level2">
+<h2>Características da Faixa de 5 GHz</h2>
+<ul>
+<li>Mais “vazia”</li>
+<li>Canais individuais</li>
+<li>Mais canais disponíveis</li>
+<li>Menos redes usando</li>
+<li>Maior desempenho</li>
+<li>Menor alcance</li>
+<li>Mais cara</li>
+<li>Disponível apenas em modelos mais caros</li>
+</ul>
+</section>
+<section id="atividade-prática" class="slide level2">
+<h2>Atividade Prática</h2>
+<p>Analise do espectro de redes wifi local.</p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="img/winapp1.png" /></p>
+</section>
+<section class="slide level2">
+
+<p><img data-src="img/winapp2.png" /></p>
+</section>
+<section id="exemplo-de-resultados" class="slide level2">
+<h2>Exemplo de resultados</h2>
+<p><img data-src="img/heatmap.png" /></p>
+<p>Fonte: https://doi.org/10.19053/01211129.v29.n54.2020.10228</p>
+</section>
+<section id="recap" class="slide level2">
+<h2>Recap</h2>
+<p>Lembrando…</p>
+</section>
+<section id="wifi" class="slide level2">
+<h2>WiFi</h2>
+<figure>
+<img data-src="img/wifi-arquitetura.png" alt="Arquitetura" /><figcaption aria-hidden="true">Arquitetura</figcaption>
+</figure>
+</section>
+<section id="referências-bibliográficas" class="slide level2">
+<h2>Referências Bibliográficas</h2>
+<ul>
+<li>KUROSE, J. Ross, K. W. Redes de computadores e a Internet. 8ª Ed. Bookman, 2021</li>
+<li>TANENBAUM, A. S. FEAMSTER N. WETHERALL D. Redes de Computadores. 6ª Ed. Bookman. 2021</li>
+<li>TORRES, Gabriel. Redes de computadores. 2ª Edição. Novaterra, 2016</li>
+</ul>
+</section>
+<section id="bibliografia-adicional" class="slide level2">
+<h2>Bibliografia adicional</h2>
+<ul>
+<li>WHITE, Curt. M. Redes de computadores e comunicação de dados 6ª Edição. Gengage Learning, 2012</li>
+<li>FOROUZAN, B. A., FEGAN S. C. Comunicação de dados e redes de computadores 4ª Edição. Editora AMGH. 2010</li>
+</ul>
+</section>
+<section id="obrigado" class="title-slide slide level1">
+<h1>Obrigado!</h1>
+
+</section>
+    </div>
+  </div>
+
+  <script src="lib/dist/reveal.js"></script>
+
+  <!-- reveal.js plugins -->
+  <script src="lib/plugin/notes/notes.js"></script>
+  <script src="lib/plugin/search/search.js"></script>
+  <script src="lib/plugin/zoom/zoom.js"></script>
+  <script src="lib/plugin/math/math.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+      
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        math: {
+          mathjax: 'lib/mathjax/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    </body>
+</html>
